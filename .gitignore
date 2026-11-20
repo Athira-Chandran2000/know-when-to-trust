@@ -221,3 +221,9 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+cache/
+outputs/
+*.nii
+*.nii.gz
+*.npz

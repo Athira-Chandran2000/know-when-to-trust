@@ -1,0 +1,8 @@
+data_root: /kaggle/input/datasets/athira4224/prostate-dataset/prostate158_train
+cache_dir: /kaggle/working/cache
+seed: 0
+targets:
+  gland:   {prompt: "prostate",                       failure_dice: 0.5}
+  central: {prompt: "central gland of the prostate",  failure_dice: 0.5}
+  pz:      {prompt: "peripheral zone of the prostate", failure_dice: 0.5}
+  lesion:  {prompt: "prostate cancer lesion",          failure_dice: 0.1}
