@@ -1,8 +1,21 @@
 data_root: /kaggle/input/datasets/athira4224/prostate-dataset/prostate158_train
 cache_dir: /kaggle/working/cache
 seed: 0
+prompt_batch: 4          # prompts sent to VoxTell per call (keeps GPU memory safe)
 targets:
-  gland:   {prompt: "prostate",                       failure_dice: 0.5}
-  central: {prompt: "central gland of the prostate",  failure_dice: 0.5}
-  pz:      {prompt: "peripheral zone of the prostate", failure_dice: 0.5}
-  lesion:  {prompt: "prostate cancer lesion",          failure_dice: 0.1}
+  gland:
+    prompt: "prostate"
+    paraphrases: ["prostate gland", "the prostate", "whole prostate"]
+    failure_dice: 0.5
+  central:
+    prompt: "central gland of the prostate"
+    paraphrases: ["transition zone of the prostate", "central zone of the prostate gland", "prostate central gland"]
+    failure_dice: 0.5
+  pz:
+    prompt: "peripheral zone of the prostate"
+    paraphrases: ["peripheral zone of the prostate gland", "posterior peripheral zone of the prostate", "prostate peripheral zone"]
+    failure_dice: 0.5
+  lesion:
+    prompt: "prostate cancer lesion"
+    paraphrases: ["suspicious lesion in the prostate", "prostate tumour", "cancerous lesion in the prostate"]
+    failure_dice: 0.1
