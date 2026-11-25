@@ -18,7 +18,19 @@ def stability(masks):
     return float(np.mean([dice(a, b) for a, b in combinations(masks, 2)]))
 
 
-def case_features(z, targets, voxel_ml):
+def adc_contrast(adc, mask, gland):
+    """Mean ADC inside the mask divided by mean ADC in the rest of the gland.
+    Cancer usually has LOWER ADC, so a ratio well below 1 supports a real lesion.
+    NaN if the mask is empty, the shapes differ, or there is no tissue left to compare."""
+    if adc.shape != mask.shape or mask.sum() == 0:
+        return np.nan
+    rest = gland & ~mask
+    if rest.sum() == 0:
+        return np.nan
+    return float(adc[mask].mean() / (adc[rest].mean() + 1e-8))
+
+
+def case_features(z, targets, voxel_ml, adc=None):
     """z: a loaded cache file. Returns one dict of features per target."""
     gland = z["gland__orig"].astype(bool)
     central = z["central__orig"].astype(bool)
@@ -39,5 +51,7 @@ def case_features(z, targets, voxel_ml):
             other = pz if t == "central" else central
             row["overlap_other"] = float((m & other).sum() / max(m.sum(), 1))
             row["union_vs_gland"] = dice(central | pz, gland)
+        if t == "lesion":
+            row["adc_ratio"] = adc_contrast(adc, m, gland) if adc is not None else np.nan
         rows.append(row)
     return rows

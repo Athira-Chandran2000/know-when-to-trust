@@ -18,6 +18,7 @@ def load_cases(data_root):
         case = {
             "id": cid,
             "t2": d / "t2.nii",
+            "adc": d / "adc.nii",
             "anatomy": d / "t2_anatomy_reader1.nii",
             "tumor": d / "t2_tumor_reader1.nii" if has_lesion else None,
             "has_lesion": has_lesion,
