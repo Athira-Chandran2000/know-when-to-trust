@@ -19,3 +19,7 @@ targets:
     prompt: "prostate cancer lesion"
     paraphrases: ["suspicious lesion in the prostate", "prostate tumour", "cancerous lesion in the prostate"]
     failure_dice: 0.1
+  stress:
+    wrong:
+      liver:  {prompt: "liver",        paraphrases: ["the liver", "hepatic parenchyma", "liver organ"]}
+      kidney: {prompt: "left kidney",  paraphrases: ["the left kidney", "renal parenchyma", "kidney organ"]}
